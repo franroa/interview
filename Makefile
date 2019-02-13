@@ -17,4 +17,4 @@ NON_PRODUCTION_AWS_ACCOUNT?="..."
 # sh "mvn --batch-mode -V -U -e clean deploy -Dsurefire.useFile=false"
 
 unit-test:
-	mvn --batch-mode --show-version --update-snapshots --errors clean test -Dsurefire.useFile=false -f ./interview/pom.xml
+	mvn --batch-mode --show-version --update-snapshots --errors clean test -Dsurefire.useFile=false -f ./application/pom.xml
