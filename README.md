@@ -42,3 +42,4 @@ docker run  -u root --name jenkinsLocalContainer --rm -d -p 8080:8080 -p 50000:5
 3. copy the outcome and paste it in the input that appears in http//localhost:8080
 4. Install whatever you want
 5. Create a freestyle job with the git project
+6. ...Under construction...
