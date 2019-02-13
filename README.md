@@ -29,6 +29,8 @@
 - Migrate maven to gradle
 - Type responses (The version of jackson that dropwizard is using seems to be failing when deserializing dates)
 - Change snake case to camel case in "expires_at"
+- the test expires_at_has_to_be_set_in_the_future is not accurate. It should test not only that the Timestamp has to be
+placed in the future but from 5 seconds in the present
 
 
 # HOW TO
