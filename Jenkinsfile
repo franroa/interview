@@ -1,30 +1,21 @@
 #!/usr/bin/env groovy
 
+node {
+    stage('Build') {
+        checkout scm
+    }
 
-//    TODO
+    stage('Unit/Integration Test') {
+        sh 'make test'
+    }
 
-//    Create Docker Image
-//
-//    Integration Test
-//
-//    Deploy if I'm on the master
-
-
-pipeline {
-    any
-    stages {
-        stage('Build') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Unit Test and package') {
-            steps {
-                withMaven {
-                    sh 'make unit-test'
-                }
-            }
+    if (isRunningMaster()) {
+        stage('Publish') {
+            sh 'make docker'
         }
     }
+}
+
+boolean isRunningMaster() {
+    return env.BRANCH_NAME == 'master'
 }

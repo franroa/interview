@@ -16,5 +16,14 @@ NON_PRODUCTION_AWS_ACCOUNT?="..."
 #                            having to crawl the workspace files to see the cause).
 # sh "mvn --batch-mode -V -U -e clean deploy -Dsurefire.useFile=false"
 
-unit-test:
-	mvn --batch-mode --show-version --update-snapshots --errors clean test -Dsurefire.useFile=false -f ./application/pom.xml
+test:
+	./kickstart.sh
+	mvn --batch-mode --show-version --update-snapshots --errors clean install -Dmaven.test.skip=true -Dsurefire.useFile=false -f ./pom.xml
+	mvn package -Dmaven.test.skip=true -Dsurefire.useFile=false -f ./application/pom.xml
+	mvn clover:setup test clover:aggregate clover:clover
+
+docker:
+	# mvn clean deploy -DskipTests=true
+	@cp application/target/interview-application-0.0.1.jar docker
+	@cp -R ./application/environment docker
+	docker build -t ${DOCKERTAG} docker

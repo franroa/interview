@@ -1,0 +1,12 @@
+#!/bin/bash
+
+exec java \
+     -Xmx512m \
+     -XX:+UnlockExperimentalVMOptions \
+     -XX:+UseCGroupMemoryLimitForHeap \
+     -Dfile.encoding=UTF-8 \
+     -jar /opt/interview/interview.jar \
+     \
+     run \
+     /opt/interview/$CLUSTER.yml \
+     $*
