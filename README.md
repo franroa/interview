@@ -42,7 +42,7 @@ The client should always be up to date
 ##### This command will create a jenkins container binding the data inside the container with the local machine
 + docker run  -u root --name jenkinsLocalContainer --rm   -d -p 8888:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
 ##### This command will install the needed packages to run the pipe line TODO (???) -> Use the jenkins plugins
-+ docker exec -ti jenkinsLocalContainer sh -c "apk update && apk add build-dependencies build-base gcc maven vim"
++ docker exec -ti jenkinsLocalContainer sh -c "apk update && apk add --virtual build-dependencies build-base gcc && apk add maven vim"
 
 
 1. docker exec -ti jenkinsLocalContainer bin/bash
