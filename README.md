@@ -39,17 +39,7 @@ The client should always be up to date
 
 ## Running jenkins in docker for developing the pipeline locally
 docker run  -u root --name jenkinsLocalContainer --rm   -d -p 8888:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
-
-In the container: 
-apk update \
-    && apk add --virtual build-dependencies \
-        build-base \
-        gcc \
-        wget \
-        git \
-    && apk add \
-        bash tree maven
-
+docker exec -ti jenkinsLocalContainer sh -c "apk update && apk add build-dependencies build-base gcc maven vim"
 
 
 1. docker exec -ti jenkinsLocalContainer bin/bash
