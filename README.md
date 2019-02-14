@@ -38,8 +38,11 @@ The client should always be up to date
 
 
 ## Running jenkins in docker for developing the pipeline locally
-docker run  -u root --name jenkinsLocalContainer --rm   -d -p 8888:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
-docker exec -ti jenkinsLocalContainer sh -c "apk update && apk add build-dependencies build-base gcc maven vim"
+
+##### This command will create a jenkins container binding the data inside the container with the local machine
++ docker run  -u root --name jenkinsLocalContainer --rm   -d -p 8888:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
+##### This command will install the needed packages to run the pipe line TODO (???) -> Use the jenkins plugins
++ docker exec -ti jenkinsLocalContainer sh -c "apk update && apk add build-dependencies build-base gcc maven vim"
 
 
 1. docker exec -ti jenkinsLocalContainer bin/bash
@@ -47,6 +50,9 @@ docker exec -ti jenkinsLocalContainer sh -c "apk update && apk add build-depende
 3. copy the outcome and paste it in the input that appears in http//localhost:8080
 4. Install whatever you want
 5. Index the branch (the master)
-6. Copy the secrets folder into jenkins:
+
+When abstracting the jenkins database:
+
+6. Copy the secrets folder into jenkins (from aws S3):
     docker cp secrets/. jenkinsLocalContainer:/var/jenkins_home/workspace/secrets
     docker cp secrets/. jenkinsLocalContainer:/var/jenkins_home/workspace/jenkins-test_master/secrets
