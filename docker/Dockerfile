@@ -13,12 +13,16 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
 RUN pip install awscli --upgrade
 
-USER franroa
-
 WORKDIR /opt/interview
+
+USER root
 
 COPY run_script.sh \
      /opt/interview/run_script.sh
+
+RUN chmod +x /opt/interview/run_script.sh
+
+USER franroa
 
 COPY cli \
      /opt/interview/cli
@@ -28,7 +32,5 @@ COPY ./environment/ \
 
 COPY interview-application-0.0.1.jar \
      /opt/interview/interview.jar
-
-RUN chmod +x /opt/interview/run_script.sh
 
 CMD /opt/interview/run_script.sh
