@@ -10,9 +10,21 @@ node {
     }
 
     if (isRunningMaster()) {
-        stage('Publish') {
+        stage('Package') {
             sh 'make docker'
         }
+
+//        stage('Publish staging image') {
+//            withStagingCredentials {
+//              awsNonProduction.publishImage(utils.getVersion())
+//            }
+//        }
+//
+//        stage('Publish production image') {
+//            withProductionCredentials {
+//                awsProduction.publishImage(utils.getVersion())
+//            }
+//        }
     }
 }
 
