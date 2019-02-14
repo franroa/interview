@@ -29,4 +29,6 @@ COPY ./environment/ \
 COPY interview-application-0.0.1.jar \
      /opt/interview/interview.jar
 
+RUN chmod +x /opt/interview/run_script.sh
+
 CMD /opt/interview/run_script.sh
