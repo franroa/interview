@@ -27,21 +27,36 @@
 - Metrics
 - Idempotency Keys
 - Migrate maven to gradle
+- The deploy of the application and the client has to be carefully studied. There are dependencies there. 
+The client should always be up to date
+- run the database container in the jenkins container, not to the local machine (to access it through "localhost")
 - Type responses (The version of jackson that dropwizard is using seems to be failing when deserializing dates)
 - Change snake case to camel case in "expires_at"
-- the test expires_at_has_to_be_set_in_the_future is not accurate. It should test not only that the Timestamp has to be
-placed in the future but from 5 seconds in the present
 
 
 # HOW TO
 
 
 ## Running jenkins in docker for developing the pipeline locally
-docker run  -u root --name jenkinsLocalContainer --rm -d -p 8080:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
+docker run  -u root --name jenkinsLocalContainer --rm   -d -p 8888:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
+
+In the container: 
+apk update \
+    && apk add --virtual build-dependencies \
+        build-base \
+        gcc \
+        wget \
+        git \
+    && apk add \
+        bash tree maven
+
+
 
 1. docker exec -ti jenkinsLocalContainer bin/bash
 2. cat /var/jenkins_home/secrets/initialAdminPassword
 3. copy the outcome and paste it in the input that appears in http//localhost:8080
 4. Install whatever you want
-5. Create a freestyle job with the git project
-6. ...Under construction...
+5. Index the branch (the master)
+6. Copy the secrets folder into jenkins:
+    docker cp secrets/. jenkinsLocalContainer:/var/jenkins_home/workspace/secrets
+    docker cp secrets/. jenkinsLocalContainer:/var/jenkins_home/workspace/jenkins-test_master/secrets
