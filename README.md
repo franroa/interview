@@ -39,7 +39,8 @@ A similar file will be stored in a S3 bucket for playground and production and c
 to the container running in a EC2 instance which hosts the application that communicates with the database
 when the application is deployed to AWS (That is the application user's password, not the root's one)
 + compile
-+ run "java -jar {jar file} server config.yml"
++ run "java -jar {jar file} server config.yml" 
+(in this case, in the "application" folder: "java -jar target/interview-application-0.0.1.jar server environment/config-local.yml")
 
 
 ## Running jenkins in docker for developing the pipeline locally
