@@ -62,3 +62,5 @@ When abstracting the jenkins database:
 6. Copy the secrets folder into jenkins (from aws S3):
     docker cp secrets/. jenkinsLocalContainer:/var/jenkins_home/workspace/secrets
     docker cp secrets/. jenkinsLocalContainer:/var/jenkins_home/workspace/jenkins-test_master/secrets
+    
+7. --- UNDER CONSTRUCTION ---
