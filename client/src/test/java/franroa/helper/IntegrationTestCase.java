@@ -58,7 +58,7 @@ public abstract class IntegrationTestCase {
     }
 
     private void startApplication() {
-        if (!shouldStartTamer()) return;
+        if (!shouldStartApp()) return;
 
         ProcessBuilder pb = new ProcessBuilder("java", "-jar", "application.jar", "server", "config.yml");
         pb.directory(new File(resourceFilePath("interviewclient")));
@@ -74,7 +74,7 @@ public abstract class IntegrationTestCase {
     }
 
     private void copyApplicationJar() {
-        if (!shouldStartTamer()) return;
+        if (!shouldStartApp()) return;
 
         try {
             String interviewVersion = "0.0.1";
@@ -98,7 +98,7 @@ public abstract class IntegrationTestCase {
         }
     }
 
-    protected boolean shouldStartTamer() {
+    protected boolean shouldStartApp() {
         return true;
     }
 

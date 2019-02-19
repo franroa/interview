@@ -28,7 +28,7 @@ public class HttpClient implements InterviewClient {
     public OfferResponse createOffer(OfferRequest request, String correlationId) throws InterviewClientException {
         try {
             return client.post("v1/offers", request).asDto(OfferResponse.class);
-        } catch (Exception e) {
+        } catch (RuntimeException exception) {
             throw new InterviewClientException();
         }
     }
@@ -37,7 +37,7 @@ public class HttpClient implements InterviewClient {
     public OfferListResponse getAllOffers() throws InterviewClientException {
         try {
             return client.get("v1/offers/").asDto(OfferListResponse.class);
-        } catch (Exception e) {
+        } catch (RuntimeException exception) {
             throw new InterviewClientException();
         }
     }
@@ -46,7 +46,7 @@ public class HttpClient implements InterviewClient {
     public OfferResponse getOffer(Long offerId) throws InterviewClientException {
         try {
             return client.get("v1/offers/" + offerId).asDto(OfferResponse.class);
-        } catch (Exception e) {
+        } catch (RuntimeException exception) {
             throw new InterviewClientException();
         }
     }
@@ -55,7 +55,7 @@ public class HttpClient implements InterviewClient {
     public void cancelOffer(Long offerId) throws InterviewClientException {
         try {
             client.delete("v1/offers/" + offerId);
-        } catch (Exception e) {
+        } catch (RuntimeException exception) {
             throw new InterviewClientException();
         }
     }

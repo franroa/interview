@@ -24,6 +24,7 @@ public abstract class InterviewClientTest extends IntegrationTestCase {
             client.getOffer(offer.id);
             Assert.fail("The offer should not be queryable");
         } catch (InterviewClientException exception) {
+            int tes = 1;
             return;
         }
     }

@@ -15,7 +15,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class FakeClientTest extends InterviewClientTest {
     @Override
-    protected boolean shouldStartTamer() {
+    protected boolean shouldStartApp() {
         return false;
     }
 
