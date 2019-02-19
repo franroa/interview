@@ -66,8 +66,7 @@ public abstract class IntegrationTestCase {
             interview = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(interview.getInputStream()));
 
-            while (!reader.readLine().contains("org.eclipse.jetty.server.Server: Started")) {
-            }
+            while (!reader.readLine().contains("org.eclipse.jetty.server.Server: Started")) {}
         } catch (IOException e) {
             e.printStackTrace();
         }

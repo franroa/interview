@@ -61,8 +61,8 @@ public class TestCase {
     }
 
     private static void openDatabaseConnection() {
-//        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost:54322/interviewDB-test", "sa", "sa"); // TODO -> test in local
-        Base.open("org.postgresql.Driver", "jdbc:postgresql://172.17.0.3:5432/interviewDB-test", "sa", "sa"); // TODO -> test in jenkins
+        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost:54322/interviewDB-test", "sa", "sa"); // TODO -> test in local
+//        Base.open("org.postgresql.Driver", "jdbc:postgresql://172.17.0.3:5432/interviewDB-test", "sa", "sa"); // TODO -> test in jenkins
     }
 
     private static void loadConfiguration() {

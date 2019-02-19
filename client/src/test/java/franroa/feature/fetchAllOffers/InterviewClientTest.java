@@ -27,8 +27,13 @@ public abstract class InterviewClientTest extends IntegrationTestCase {
         assertThat(response.offers.size()).isGreaterThan(1);
     }
 
-    @Test(expected = InterviewClientException.class)
+    @Test
     public void if_there_is_a_connection_error_it_throws_an_exception() throws InterviewClientException {
-        createClient("connection-error").getAllOffers();
+        try {
+            createClient("connection-error").getAllOffers();
+        } catch (InterviewClientException exception) {
+
+            assertThat(exception.getCause().getMessage()).isEqualTo("java.net.ConnectException: Connection refused (Connection refused)");
+        }
     }
 }

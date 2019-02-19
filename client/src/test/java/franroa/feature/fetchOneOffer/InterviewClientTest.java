@@ -6,6 +6,7 @@ import franroa.api.OfferResponse;
 import franroa.exception.InterviewClientException;
 import franroa.helper.IntegrationTestCase;
 import franroa.helper.factory.RequestFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -29,8 +30,29 @@ public abstract class InterviewClientTest extends IntegrationTestCase {
         assertThat(response.expires_at).isEqualTo(request.expires_at);
     }
 
-    @Test(expected = InterviewClientException.class)
+    @Test
+    public void if_the_offer_does_not_exists_it_throws_an_exception() {
+        InterviewClient client = createClient("valid");
+        Long invalidOfferId = 2345243L;
+
+        try {
+            client.getOffer(invalidOfferId);
+            Assert.fail("The offer should not be queryable");
+
+        } catch (InterviewClientException exception) {
+            assertThat(exception.getMessage()).isEqualTo(
+                    "franroa.simplehttp.UnableToReadEntityException: The entity could not be read"
+            );
+        }
+    }
+
+    @Test
     public void if_there_is_a_connection_error_it_throws_an_exception() throws InterviewClientException {
-        createClient("connection-error").getOffer(155L);
+        try {
+            createClient("connection-error").getOffer(155L);
+        } catch (InterviewClientException exception) {
+
+            assertThat(exception.getCause().getMessage()).isEqualTo("java.net.ConnectException: Connection refused (Connection refused)");
+        }
     }
 }

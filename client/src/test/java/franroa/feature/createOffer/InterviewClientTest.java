@@ -36,16 +36,21 @@ public abstract class InterviewClientTest extends IntegrationTestCase {
         }
     }
 
-    @Test(expected = InterviewClientException.class)
+    @Test
     public void if_there_is_a_connection_error_it_throws_an_exception() throws InterviewClientException {
         OfferRequest request = RequestFactory.offer();
 
-        createClient("connection-error").createOffer(request, "my-correlation-id");
+        try {
+            createClient("connection-error").createOffer(request, "my-correlation-id");
+        } catch (InterviewClientException exception) {
+
+            assertThat(exception.getCause().getMessage()).isEqualTo("java.net.ConnectException: Connection refused (Connection refused)");
+        }
     }
 
     @Test(expected = InterviewClientException.class)
     @DataProvider(value = {"name", "price", "currency", "expires_at"})
-    public void test(String field) throws InterviewClientException {
+    public void some_fields_are_required(String field) throws InterviewClientException {
         OfferRequest request = RequestFactory.offer();
 
         try {
@@ -56,6 +61,4 @@ public abstract class InterviewClientTest extends IntegrationTestCase {
 
         createClient("invalid").createOffer(request, "my-correlation-id");
     }
-
-
 }

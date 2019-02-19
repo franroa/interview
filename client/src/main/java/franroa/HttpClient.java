@@ -29,7 +29,7 @@ public class HttpClient implements InterviewClient {
         try {
             return client.post("v1/offers", request).asDto(OfferResponse.class);
         } catch (RuntimeException exception) {
-            throw new InterviewClientException();
+            throw new InterviewClientException(exception);
         }
     }
 
@@ -38,7 +38,7 @@ public class HttpClient implements InterviewClient {
         try {
             return client.get("v1/offers/").asDto(OfferListResponse.class);
         } catch (RuntimeException exception) {
-            throw new InterviewClientException();
+            throw new InterviewClientException(exception);
         }
     }
 
@@ -47,7 +47,7 @@ public class HttpClient implements InterviewClient {
         try {
             return client.get("v1/offers/" + offerId).asDto(OfferResponse.class);
         } catch (RuntimeException exception) {
-            throw new InterviewClientException();
+            throw new InterviewClientException(exception);
         }
     }
 
@@ -56,7 +56,7 @@ public class HttpClient implements InterviewClient {
         try {
             client.delete("v1/offers/" + offerId);
         } catch (RuntimeException exception) {
-            throw new InterviewClientException();
+            throw new InterviewClientException(exception);
         }
     }
 }

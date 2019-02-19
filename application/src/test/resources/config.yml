@@ -10,7 +10,8 @@ database:
   driverClass: org.postgresql.Driver
   password: password
   user: postgres
-  url: jdbc:postgresql://localhost:54322/interviewDB-test
+  # url: jdbc:postgresql://localhost:54322/interviewDB-test TODO -> to be abstracted (is hard coded in TestCase) I want to create two config files for testing
+  url: fake TODO -> to be abstracted
 
 queue:
   type: "SYNC"

@@ -6,9 +6,11 @@ import franroa.api.OfferRequest;
 import franroa.api.OfferResponse;
 import franroa.api.enums.Currency;
 import franroa.exception.InterviewClientException;
+import franroa.simplehttp.UnableToReadEntityException;
 
 
 import javax.validation.Validation;
+import java.net.ConnectException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +65,7 @@ public class FakeClient implements InterviewClient {
         guard();
 
         if (fakeOffers.offers.size() == 0) {
-            throw new InterviewClientException();
+            throw new InterviewClientException(new UnableToReadEntityException("The entity could not be read"));
         }
 
         return fakeOffers.offers.get(Integer.valueOf(String.valueOf(offerId)));
@@ -73,13 +75,13 @@ public class FakeClient implements InterviewClient {
     public void cancelOffer(Long offerId) throws InterviewClientException {
         caughtCancelOfferCalls.add(offerId);
 
+        guard();
+
         try {
             fakeOffers.offers.remove(fakeOffers.offers.get(Integer.valueOf(String.valueOf(offerId))));
         } catch (Exception e) {
-            throw new InterviewClientException();
+            throw new InterviewClientException(e);
         }
-
-        guard();
     }
 
     public OfferRequest getCaughtRequest() {
@@ -92,7 +94,7 @@ public class FakeClient implements InterviewClient {
 
     private void guard() throws InterviewClientException {
         if (fakeConnectionError) {
-            throw new InterviewClientException();
+            throw new InterviewClientException(new ConnectException("java.net.ConnectException: Connection refused (Connection refused)"));
         }
     }
 

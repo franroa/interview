@@ -9,6 +9,9 @@ import franroa.helper.factory.RequestFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+
+import static org.assertj.core.api.Java6Assertions.assertThat;
+
 public abstract class InterviewClientTest extends IntegrationTestCase {
     protected abstract InterviewClient createClient(String scenario);
 
@@ -24,13 +27,19 @@ public abstract class InterviewClientTest extends IntegrationTestCase {
             client.getOffer(offer.id);
             Assert.fail("The offer should not be queryable");
         } catch (InterviewClientException exception) {
-            int tes = 1;
-            return;
+            assertThat(exception.getMessage()).isEqualTo(
+                    "franroa.simplehttp.UnableToReadEntityException: The entity could not be read"
+            );
         }
     }
 
-    @Test(expected = InterviewClientException.class)
+    @Test
     public void if_there_is_a_connection_error_it_throws_an_exception() throws InterviewClientException {
-        createClient("connection-error").cancelOffer(155L);
+        try {
+            createClient("connection-error").cancelOffer(155L);
+        } catch (InterviewClientException exception) {
+
+            assertThat(exception.getCause().getMessage()).isEqualTo("java.net.ConnectException: Connection refused (Connection refused)");
+        }
     }
 }
