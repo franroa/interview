@@ -8,7 +8,7 @@
  - "cancel" a offer means actually deleting it form the database
  - We favour feature test over unit tests. The application and the client are tested in their relative modules. 
  "api" module is implicitly tested through the application's and the client's feature tests 
- - Dto types are Strings or Longs to have influence on how to handle the validation 
+ - Dto types are Strings or Longs (and not the real type) in order to have influence on how to handle the validation 
  (Another way could be to catch the exception thrown by DropWizard when serializing)
 - Another config will be set only for jenkins. That one will have the postgres real database, and the local application
  should be run on an in-memory database

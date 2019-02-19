@@ -15,20 +15,19 @@ public class NullClient implements InterviewClient {
 
     @Override
     public OfferResponse createOffer(OfferRequest request, String correlationId) throws InterviewClientException {
-        return null;
+        return new OfferResponse();
     }
 
     @Override
     public OfferListResponse getAllOffers() throws InterviewClientException {
-        return null;
+        return new OfferListResponse();
     }
 
     @Override
     public OfferResponse getOffer(Long offerId) throws InterviewClientException {
-        return null;
+        return new OfferResponse();
     }
 
     @Override
-    public void cancelOffer(Long offerId) throws InterviewClientException {
-    }
+    public void cancelOffer(Long offerId) throws InterviewClientException {}
 }
