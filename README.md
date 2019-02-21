@@ -79,6 +79,8 @@ the database connection depending on where you are executing the tests.
 In both files the change is the same: 
 
 - For testing in jenkins: You need to figure out the ip where your container is running and add the real port of the database on your machine (not what docker is exposing): 5432.
-  For getting the container's ip use (see ): 
+  For getting the container's ip use:
+   
+   
     > **docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' jenkinsLocalContainer**
 - For testing locally you only have to set the values of what docker is exposing.
