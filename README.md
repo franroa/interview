@@ -64,3 +64,21 @@ When abstracting the jenkins database:
     docker cp secrets/. jenkinsLocalContainer:/var/jenkins_home/workspace/jenkins-test_master/secrets
     
 7. --- UNDER CONSTRUCTION ---
+
+
+* NOTE:
+
+The idea is to use a different config.yml for testing in local and in jenkins. I would like to
+try to set an in-memory database for local testing and an implementation of a real database in jenkins.
+Until that config.yml split, if you want to test in both environments you have to set the ip and ports in 
+the database connection depending on where you are executing the tests.
+
+- In the TestCase class of the application module
+- In the config.yml of client/test/.../resources
+
+In both files the change is the same: 
+
+- For testing in jenkins: You need to figure out the ip where your container is running and add the real port of the database on your machine (not what docker is exposing): 5432.
+  For getting the container's ip use (see ): 
+    > **docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' jenkinsLocalContainer**
+- For testing locally you only have to set the values of what docker is exposing.
